@@ -2,17 +2,14 @@
 using webapi.Entities;
 
 namespace webapi.Features.ToDoLists.GetAll;
-   public record Request();
-   public record Response(List<ToDoListDto> ToDoList);
+public record Request();
+public record Response(Guid id, string title, bool IsDone);
 
-public record ToDoListDto(string Title, bool IsDone, List<ToDoItem> ToDoItems);
-
-
-public class ToDoListDtoProfile : Profile
+public class ResponseProfile : Profile
 {
-    public ToDoListDtoProfile()
+    public ResponseProfile()
     {
-        CreateMap<ToDoList, ToDoListDto>();
+        CreateMap<ToDoList, Response>();
     }
 }
 
