@@ -25,7 +25,7 @@ public class ToDoList : AuditableBaseEntity<Guid>
 
     public ToDoItem AddToDoItem(string text)
     {
-        var toDoItem = ToDoItem.Create(text, this.Id);
+        var toDoItem = ToDoItem.CreateNoGuid(text, this.Id);
         toDoItem.CreatedBy = "Alessio";
         toDoItem.Created = DateTime.UtcNow;
         ToDoItems.Add(toDoItem);

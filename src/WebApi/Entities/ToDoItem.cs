@@ -10,6 +10,12 @@ public class ToDoItem : AuditableBaseEntity<Guid>
     public ToDoList ToDoList { get; set; }
     public bool IsDone { get; set; } = false;
 
+    private ToDoItem(Guid id, string text, Guid toDoListId) : base(id)
+    {
+        Text = text;
+        ToDoListId = toDoListId;
+    }
+
     private ToDoItem(string text, Guid toDoListId) : base()
     {
         Text = text;
@@ -17,6 +23,11 @@ public class ToDoItem : AuditableBaseEntity<Guid>
     }
 
     public static ToDoItem Create(string text, Guid toDoListId)
+    {
+        return new ToDoItem(Guid.NewGuid(), text, toDoListId);
+    }
+
+    public static ToDoItem CreateNoGuid(string text, Guid toDoListId)
     {
         return new ToDoItem(text, toDoListId);
     }
