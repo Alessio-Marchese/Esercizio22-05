@@ -15,7 +15,7 @@ internal sealed class Endpoint(ApplicationDbContext context, AutoMapper.IMapper 
 
     public override async Task HandleAsync(Request r, CancellationToken c)
     {
-        var toDoList = await context.ToDoLists.FirstOrDefaultAsync(x => x.Id == r.Id);
+        var toDoList = await context.ToDoLists.Include(x => x.ToDoItems).FirstOrDefaultAsync(x => x.Id == r.Id);
         if (toDoList == null)
         {
             await SendNotFoundAsync(c);
