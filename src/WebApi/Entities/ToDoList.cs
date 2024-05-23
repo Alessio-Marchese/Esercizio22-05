@@ -6,7 +6,7 @@ public class ToDoList : AuditableBaseEntity<Guid>
 { 
     public string Title { get; set; }
     public bool IsDone { get; set; }
-    public List<ToDoItem> ToDoItems { get; set; }
+    public List<ToDoItem> ToDoItems { get; set; } = new List<ToDoItem>();
 
     protected ToDoList()
     {
@@ -16,7 +16,6 @@ public class ToDoList : AuditableBaseEntity<Guid>
     private ToDoList(Guid id, string title) : base(id)
     {
         Title = title;
-        ToDoItems = new();
     }
 
     public static ToDoList Create(string title)
@@ -24,8 +23,12 @@ public class ToDoList : AuditableBaseEntity<Guid>
         return new ToDoList(Guid.NewGuid(), title);
     }
 
-    public void AddToDoItem(string text)
+    public ToDoItem AddToDoItem(string text)
     {
-        ToDoItems.Add(ToDoItem.Create(text, this.Id));
+        var toDoItem = ToDoItem.Create(text, this.Id);
+        toDoItem.CreatedBy = "Alessio";
+        toDoItem.Created = DateTime.UtcNow;
+        ToDoItems.Add(toDoItem);
+        return toDoItem;
     }
 }
