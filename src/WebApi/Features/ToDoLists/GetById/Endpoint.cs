@@ -3,7 +3,7 @@ using webapi.Infastructure.Data;
 
 namespace webapi.Features.ToDoLists.GetById;
 
-public class Endpoint(ApplicationDbContext context) : Endpoint<EmptyRequest, Response>
+public class Endpoint(ApplicationDbContext context) : Endpoint<Request, Response>
 {
     public override void Configure()
     {
@@ -11,10 +11,9 @@ public class Endpoint(ApplicationDbContext context) : Endpoint<EmptyRequest, Res
         AllowAnonymous();
     }
 
-    public override async Task HandleAsync(EmptyRequest req, CancellationToken ct)
+    public override async Task HandleAsync(Request req, CancellationToken ct)
     {
-        var id = Route<Guid>("id");
-        var toDoList = await context.ToDoLists.FindAsync(id);
+        var toDoList = await context.ToDoLists.FindAsync(req.Id);
         if (toDoList == null)
         {
             await SendNotFoundAsync(ct);
