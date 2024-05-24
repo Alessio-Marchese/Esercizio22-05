@@ -1,4 +1,5 @@
-﻿using Shared.Entities.Common;
+﻿using Shared.DTOS.ToDoItems.Update;
+using Shared.Entities.Common;
 using System.Text.Json.Serialization;
 
 namespace Shared.Entities;
@@ -31,5 +32,22 @@ public class ToDoItem : AuditableBaseEntity<Guid>
     public static ToDoItem CreateNoGuid(string text, Guid toDoListId)
     {
         return new ToDoItem(text, toDoListId);
+    }
+
+    public static ToDoItem Update(ToDoItem toDoItem, Request r, ToDoList? toDoList)
+    {
+        if (!string.IsNullOrWhiteSpace(r.Text))
+        {
+            toDoItem.Text = r.Text;
+        }
+        if (toDoList is not null)
+        {
+            toDoItem.ToDoList = toDoList;
+        }
+        if (toDoItem.IsDone != r.IsDone)
+        {
+            toDoItem.IsDone = r.IsDone;
+        }
+        return toDoItem;
     }
 }
