@@ -14,7 +14,7 @@ namespace webapi.Features.ToDoLists
 
         public override async Task HandleAsync(Request r, CancellationToken c)
         {
-            var toDoList = await context.ToDoLists.FindAsync(r.Id);
+            var toDoList = await context.ToDoLists.FindAsync(r.id);
             if (toDoList == null) 
             {
                 await SendNotFoundAsync(c);

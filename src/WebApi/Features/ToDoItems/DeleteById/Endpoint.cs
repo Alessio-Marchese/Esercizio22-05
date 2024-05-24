@@ -1,4 +1,5 @@
 ﻿using FastEndpoints;
+using Microsoft.EntityFrameworkCore;
 using Shared.DTOS.ToDoItems.DeleteById;
 using webapi.Infastructure.Data;
 
@@ -14,13 +15,15 @@ namespace webapi.Features.ToDoItems.DeleteById
 
         public override async Task HandleAsync(Request r, CancellationToken c)
         {
-            var toDoItem = await context.ToDoItems.FindAsync(r.Id);
-            if(toDoItem is null)
+            var toDoItem = await context.ToDoItems.Include(x => x.ToDoList).FirstOrDefaultAsync(x => x.Id == r.id);
+            if (toDoItem is null)
             {
                 await SendNotFoundAsync();
                 return;
             }
+            toDoItem.ToDoList.ToDoItems.Remove(toDoItem);
             context.ToDoItems.Remove(toDoItem);
+            toDoItem.ToDoList.CheckDone();
             await context.SaveChangesAsync();
             await SendNoContentAsync();
         }

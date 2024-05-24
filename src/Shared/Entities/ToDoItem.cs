@@ -40,13 +40,13 @@ public class ToDoItem : AuditableBaseEntity<Guid>
         {
             toDoItem.Text = r.Text;
         }
-        if (toDoList is not null)
-        {
-            toDoItem.ToDoList = toDoList;
-        }
         if (toDoItem.IsDone != r.IsDone)
         {
             toDoItem.IsDone = r.IsDone;
+        }
+        if (toDoList is not null)
+        {
+            toDoItem.ToDoList = toDoList;
         }
         return toDoItem;
     }

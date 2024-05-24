@@ -31,4 +31,9 @@ public class ToDoList : AuditableBaseEntity<Guid>
         ToDoItems.Add(toDoItem);
         return toDoItem;
     }
+
+    public void CheckDone()
+    {
+        IsDone = ToDoItems.All(item => item.IsDone);
+    }
 }

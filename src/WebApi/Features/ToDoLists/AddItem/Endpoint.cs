@@ -21,6 +21,7 @@ namespace webapi.Features.ToDoLists.AddItem
                 return;
             }
             var toDoItem = toDoList.AddToDoItem(r.Text);
+            toDoList.CheckDone();
             await context.SaveChangesAsync();
             await SendAsync(new Response(toDoItem.Id), cancellation: c);
         }

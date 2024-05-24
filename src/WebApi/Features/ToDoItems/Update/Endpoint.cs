@@ -1,4 +1,5 @@
 ﻿using FastEndpoints;
+using Microsoft.EntityFrameworkCore;
 using Shared.DTOS.ToDoItems.Update;
 using Shared.Entities;
 using webapi.Infastructure.Data;
@@ -16,7 +17,7 @@ namespace webapi.Features.ToDoItems.Update
         public override async Task HandleAsync(Request r, CancellationToken c)
         {
             ToDoList? toDoList = null;
-            var toDoItem = await context.ToDoItems.FindAsync(r.id);
+            var toDoItem = await context.ToDoItems.Include(x => x.ToDoList).FirstOrDefaultAsync(x => x.Id == r.id);
             if (toDoItem is null)
             {
                 await SendNotFoundAsync();
@@ -32,6 +33,7 @@ namespace webapi.Features.ToDoItems.Update
                 }
             }
             toDoItem = ToDoItem.Update(toDoItem, r, toDoList);
+            toDoItem.ToDoList.CheckDone();
             await context.SaveChangesAsync();
             await SendNoContentAsync();
         }
