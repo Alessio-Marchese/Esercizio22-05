@@ -1,7 +1,28 @@
 ﻿@page "/"
+@using Shared.Entities
+@inject HttpClient HttpClient
+@inject ToDoListClient toDoListClient
+
 
 <PageTitle>Home</PageTitle>
 
-<h1>Hello, world!</h1>
+@if(toDoLists is null)
+{
+    <p><em>Loading ...</em></p>
+}
+else
+{
+    @foreach (var toDoList in toDoLists)
+    {
+        <p>@toDoList.Title</p>
+        <p>ciao</p>
+    }
+}
 
-Welcome to your new app.
+@code {
+    List<ToDoList>? toDoLists;
+    protected override async Task OnInitializedAsync()
+    {
+        toDoLists = await toDoListClient.GetAllAsync(HttpClient);
+    }
+}

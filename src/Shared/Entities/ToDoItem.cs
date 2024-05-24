@@ -12,7 +12,12 @@ public class ToDoItem : AuditableBaseEntity<Guid>
     public ToDoList ToDoList { get; set; }
     public bool IsDone { get; set; } = false;
 
-    private ToDoItem(Guid id, string text, Guid toDoListId) : base(id)
+    protected ToDoItem()
+    {
+
+    }
+    [JsonConstructorAttribute]
+    protected ToDoItem(Guid id, string text, Guid toDoListId) : base(id)
     {
         Text = text;
         ToDoListId = toDoListId;

@@ -1,4 +1,5 @@
 ﻿using Shared.Entities.Common;
+using System.Text.Json.Serialization;
 
 namespace Shared.Entities;
 
@@ -13,7 +14,8 @@ public class ToDoList : AuditableBaseEntity<Guid>
 
     }
 
-    private ToDoList(Guid id, string title) : base(id)
+    [JsonConstructorAttribute]
+    protected ToDoList(Guid id, string title) : base(id)
     {
         Title = title;
     }
