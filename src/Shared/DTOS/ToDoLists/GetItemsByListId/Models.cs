@@ -1,6 +1,6 @@
-﻿using webapi.Entities;
+﻿using Shared.Entities;
 
-namespace webapi.Features.ToDoLists.GetItemsByListId;
+namespace Shared.DTOS.ToDoLists.GetItemsByListId;
 
 public record class Request(Guid Id);
 public record class Response(List<ToDoItem> ToDoItems);

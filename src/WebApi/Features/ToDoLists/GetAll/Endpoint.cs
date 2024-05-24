@@ -1,8 +1,8 @@
 ﻿using AutoMapper.QueryableExtensions;
 using FastEndpoints;
 using Microsoft.EntityFrameworkCore;
-using webapi.Entities;
 using webapi.Infastructure.Data;
+using Shared.DTOS.ToDoLists.GetAll;
 
 namespace webapi.Features.ToDoLists.GetAll;
 

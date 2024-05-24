@@ -1,7 +1,7 @@
 ﻿using FastEndpoints;
 using Microsoft.EntityFrameworkCore;
-using webapi.Entities;
 using webapi.Infastructure.Data;
+using Shared.DTOS.ToDoLists.GetItemsByListId;
 
 namespace webapi.Features.ToDoLists.GetItemsByListId;
 

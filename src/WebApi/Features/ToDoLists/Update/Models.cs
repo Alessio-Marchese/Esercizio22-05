@@ -1,4 +1,4 @@
-﻿using webapi.Entities;
+﻿using Shared.Entities;
 
 namespace webapi.Features.ToDoLists.Update
 {

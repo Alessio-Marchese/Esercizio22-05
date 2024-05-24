@@ -1,5 +1,5 @@
 ﻿using FastEndpoints;
-using webapi.Entities;
+using Shared.DTOS.ToDoLists.AddItem;
 using webapi.Infastructure.Data;
 
 namespace webapi.Features.ToDoLists.AddItem

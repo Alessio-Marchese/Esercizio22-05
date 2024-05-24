@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using webapi.Entities;
+using Shared.Entities;
 
-namespace webapi.Features.ToDoLists.GetAll;
+namespace Shared.DTOS.ToDoLists.GetAll;
 public record Request();
 public record Response(Guid Id, string Title, bool IsDone);
 
