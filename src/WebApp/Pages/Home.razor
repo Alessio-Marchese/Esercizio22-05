@@ -2,7 +2,6 @@
 @using Shared.Entities
 @inject HttpClient HttpClient
 @inject ToDoListClient toDoListClient
-@inject NavigationManager NavManager
 
 
 <PageTitle>Home</PageTitle>
@@ -13,25 +12,11 @@
 }
 else
 {
-    <table class="table table-bordered table-hover">
-        <thead class="table-dark">
-            <tr>
-                <th>Title</th>
-                <th>Created-From</th>
-                <th>Creation-Date</th>
-            </tr>
-        </thead>
-        <tbody class="table-secondary">
-            @foreach (var toDoList in toDoLists)
-            {
-                <tr @onclick="() => redirectToDetail(toDoList.Id)">
-                    <td>@toDoList.Title</td>
-                    <td>@toDoList.CreatedBy</td>
-                    <td>@toDoList.Created.Day/@toDoList.Created.Month/@toDoList.Created.Year</td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    @foreach (var toDoList in toDoLists)
+    {
+        <p>@toDoList.Title</p>
+        <p>ciao</p>
+    }
 }
 
 @code {
@@ -39,10 +24,5 @@ else
     protected override async Task OnInitializedAsync()
     {
         toDoLists = await toDoListClient.GetAllAsync(HttpClient);
-    }
-
-    public void redirectToDetail(Guid id)
-    {
-        NavManager.NavigateTo($"/detail/{id}");
     }
 }
