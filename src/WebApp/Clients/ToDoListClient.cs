@@ -13,4 +13,13 @@ public class ToDoListClient
 
     public async Task DeleteToDoListAsync(HttpClient httpClient, Guid id)
         => await httpClient.DeleteAsync($"http://localhost:5084/api/todo-list/{id}");
+
+    public async Task<Shared.DTOS.ToDoLists.GetById.Response?> GetToDoListByIdAsync(HttpClient httpClient, Guid id)
+        => await httpClient.GetFromJsonAsync<Shared.DTOS.ToDoLists.GetById.Response>($"http://localhost:5084/api/todo-list/{id}");
+
+    public async Task UpdateToDoListAsync(HttpClient httpClient, Guid id, string listTitle)
+    {
+        Shared.DTOS.ToDoLists.Update.Request request = new(id, listTitle);
+        await httpClient.PutAsJsonAsync($"http://localhost:5084/api/todo-list/{id}", request);
+    }
 }

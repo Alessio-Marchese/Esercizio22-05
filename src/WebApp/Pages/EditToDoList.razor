@@ -1,7 +1,36 @@
 ﻿@page "/edit/{id:guid}"
-<h3>@id</h3>
+@using Shared.DTOS.ToDoLists.GetById
+@inject HttpClient HttpClient
+@inject ToDoListClient ToDoListClient
+@inject NavigationManager NavManager
+
+@if(response is null)
+{
+    <p><em>Loading ...</em></p>
+}
+else
+{
+    <EditForm Model="@response" OnSubmit="updateToDoList">
+        <label for="ListTitle">Title:</label>
+        <InputText id="ListTitle" @bind-Value="response.ListTitle"></InputText>
+        <button type="submit">Salva</button>
+    </EditForm>
+}
 
 @code {
     [Parameter]
     public Guid id { get; set; }
+
+    private Response? response { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        response = await ToDoListClient.GetToDoListByIdAsync(HttpClient, id);
+    }
+
+    private async Task updateToDoList()
+    {
+        await ToDoListClient.UpdateToDoListAsync(HttpClient, id, response.ListTitle);
+        NavManager.NavigateTo("/");
+    }
 }
