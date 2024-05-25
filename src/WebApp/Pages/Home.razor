@@ -29,6 +29,8 @@ else
                     <td>@toDoList.CreatedBy</td>
                     <td>@toDoList.Created.Day/@toDoList.Created.Month/@toDoList.Created.Year</td>
                 </tr>
+                <a class="btn btn-warning flex-fill" href="/edit/@toDoList.Id">Modifica</a>
+                <a class="btn btn-danger flex-fill" @onclick="() => deleteToDoList(toDoList.Id)">Elimina</a>
             }
         </tbody>
     </table>
@@ -44,5 +46,11 @@ else
     public void redirectToDetail(Guid id)
     {
         NavManager.NavigateTo($"/detail/{id}");
+    }
+
+    public async void deleteToDoList(Guid id)
+    {
+        await ToDoListClient.DeleteToDoListAsync(HttpClient, id);
+        NavManager.Refresh();
     }
 }

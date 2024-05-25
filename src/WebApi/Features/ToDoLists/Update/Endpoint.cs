@@ -24,10 +24,6 @@ namespace webapi.Features.ToDoLists.Update
             {
                 toDoList.Title = r.Title;
             }
-            if(toDoList.IsDone != r.IsDone)
-            {
-                toDoList.IsDone = r.IsDone;
-            }
             await context.SaveChangesAsync();
             await SendNoContentAsync();
         }

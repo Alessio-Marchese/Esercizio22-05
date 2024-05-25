@@ -12,8 +12,8 @@ using webapi.Infastructure.Data;
 namespace webapi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240522123322_2")]
-    partial class _2
+    [Migration("20240525165255_1")]
+    partial class _1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace webapi.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("webapi.Entities.ToDoItem", b =>
+            modelBuilder.Entity("Shared.Entities.ToDoItem", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -51,17 +51,17 @@ namespace webapi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("ToDoListId")
+                    b.Property<Guid>("ToDoListId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ToDoListId");
 
-                    b.ToTable("toDoItems");
+                    b.ToTable("ToDoItems");
                 });
 
-            modelBuilder.Entity("webapi.Entities.ToDoList", b =>
+            modelBuilder.Entity("Shared.Entities.ToDoList", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -89,19 +89,23 @@ namespace webapi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("toDoLists");
+                    b.ToTable("ToDoLists");
                 });
 
-            modelBuilder.Entity("webapi.Entities.ToDoItem", b =>
+            modelBuilder.Entity("Shared.Entities.ToDoItem", b =>
                 {
-                    b.HasOne("webapi.Entities.ToDoList", null)
-                        .WithMany("Items")
-                        .HasForeignKey("ToDoListId");
+                    b.HasOne("Shared.Entities.ToDoList", "ToDoList")
+                        .WithMany("ToDoItems")
+                        .HasForeignKey("ToDoListId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ToDoList");
                 });
 
-            modelBuilder.Entity("webapi.Entities.ToDoList", b =>
+            modelBuilder.Entity("Shared.Entities.ToDoList", b =>
                 {
-                    b.Navigation("Items");
+                    b.Navigation("ToDoItems");
                 });
 #pragma warning restore 612, 618
         }

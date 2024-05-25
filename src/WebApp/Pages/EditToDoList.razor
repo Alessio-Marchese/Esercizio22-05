@@ -1,0 +1,7 @@
+﻿@page "/edit/{id:guid}"
+<h3>@id</h3>
+
+@code {
+    [Parameter]
+    public Guid id { get; set; }
+}

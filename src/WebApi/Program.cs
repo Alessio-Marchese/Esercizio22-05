@@ -2,6 +2,7 @@ using FastEndpoints;
 using FastEndpoints.Swagger;
 using Microsoft.EntityFrameworkCore;
 using Shared;
+using Shared.Entities;
 using System.Reflection;
 using webapi.Infastructure.Data;
 
@@ -26,6 +27,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(o => o.UseSqlServer(builder.
     opt.UseInMemoryDatabase(nameof(ToDoList));
 });
 */
+
 
 builder.Services.AddEndpointsApiExplorer();
 var app = builder.Build();
