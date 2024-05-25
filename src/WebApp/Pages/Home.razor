@@ -1,7 +1,6 @@
 ﻿@page "/"
-@using Shared.Entities
 @inject HttpClient HttpClient
-@inject ToDoListClient toDoListClient
+@inject ToDoListClient ToDoListClient
 @inject NavigationManager NavManager
 
 
@@ -38,7 +37,7 @@ else
     List<ToDoList>? toDoLists;
     protected override async Task OnInitializedAsync()
     {
-        toDoLists = await toDoListClient.GetAllAsync(HttpClient);
+        toDoLists = await ToDoListClient.GetAllAsync(HttpClient);
     }
 
     public void redirectToDetail(Guid id)

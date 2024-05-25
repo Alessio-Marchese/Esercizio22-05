@@ -1,14 +1,54 @@
 ﻿@page "/detail/{id:guid}"
+@inject ToDoListClient ToDoListClient
+@inject HttpClient HttpClient
+@using Shared.DTOS.ToDoLists.GetItemsByListId
 
 <PageTitle>Detail</PageTitle>
-<h1>@id</h1>
+@if(response is null || response.ToDoItems.Count < 1)
+{
+    <p><em>Non ci sono items in questa lista :(</em></p>
+}
+else
+{
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr class="table-secondary">
+                <th>Contenuto</th>
+                <th>Fatto?</th>
+                <th>Creato da</th>
+                <th>Data creazione</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in response.ToDoItems)
+            {
+                <tr class="table-primary">
+                    <td>@item.Text</td>
+                    @if(item.IsDone)
+                    {
+                        <td>Si</td>
+                    }
+                    else
+                    {
+                        <td>No</td>
+                    }
+                    <td>@item.CreatedBy</td>
+                    <td>@item.Created.Day/@item.Created.Month/@item.Created.Year</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
 
 @code{
     [Parameter]
-    public Guid id {get;set;} 
+    public Guid id {get;set;}
 
-    protected override void OnParametersSet()
+    private Response? response;
+
+    protected override async Task OnInitializedAsync()
     {
-        
+            response = await ToDoListClient.GetItemsByListIdAsync(HttpClient, id);
     }
 }
