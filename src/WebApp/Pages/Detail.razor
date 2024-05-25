@@ -1,4 +1,4 @@
-﻿@page "/detail/{id:Guid}"
+﻿@page "/detail/{id:guid}"
 
 <PageTitle>Detail</PageTitle>
 <h1>@id</h1>
@@ -6,4 +6,9 @@
 @code{
     [Parameter]
     public Guid id {get;set;} 
+
+    protected override void OnParametersSet()
+    {
+        
+    }
 }
