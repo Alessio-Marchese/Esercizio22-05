@@ -1,4 +1,5 @@
 ﻿@page "/"
+@using Shared.DTOS.ToDoLists.GetAll
 @inject HttpClient HttpClient
 @inject ToDoListClient ToDoListClient
 @inject NavigationManager NavManager
@@ -6,7 +7,7 @@
 
 <PageTitle>Home</PageTitle>
 
-@if(toDoLists is null)
+@if(response is null)
 {
     <p><em>Loading ...</em></p>
 }
@@ -21,7 +22,7 @@ else
             </tr>
         </thead>
         <tbody class="table-secondary">
-            @foreach (var toDoList in toDoLists)
+            @foreach (var toDoList in response)
             {
                 <tr @onclick="() => redirectToDetail(toDoList.Id)">
                     <td>@toDoList.Title</td>
@@ -34,10 +35,10 @@ else
 }
 
 @code {
-    List<ToDoList>? toDoLists;
+    List<Response>? response;
     protected override async Task OnInitializedAsync()
     {
-        toDoLists = await ToDoListClient.GetAllAsync(HttpClient);
+        response = await ToDoListClient.GetAllAsync(HttpClient);
     }
 
     public void redirectToDetail(Guid id)

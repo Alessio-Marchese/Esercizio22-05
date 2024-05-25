@@ -4,7 +4,11 @@
 @using Shared.DTOS.ToDoLists.GetItemsByListId
 
 <PageTitle>Detail</PageTitle>
-@if(response is null || response.ToDoItems.Count < 1)
+@if (response is null)
+{
+    <p><em>Loading ...</em></p>
+}
+else if(response.ToDoItems.Count < 1)
 {
     <p><em>Non ci sono items in questa lista :(</em></p>
 }
