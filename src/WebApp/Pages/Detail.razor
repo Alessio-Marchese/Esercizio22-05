@@ -1,0 +1,9 @@
+﻿@page "/detail/{id:Guid}"
+
+<PageTitle>Detail</PageTitle>
+<h1>@id</h1>
+
+@code{
+    [Parameter]
+    public Guid id {get;set;} 
+}
