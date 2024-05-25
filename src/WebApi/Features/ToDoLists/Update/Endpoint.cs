@@ -28,10 +28,6 @@ namespace webapi.Features.ToDoLists.Update
             {
                 toDoList.IsDone = r.IsDone;
             }
-            if(r.ToDoItems.Count > 0)
-            {
-                toDoList.ToDoItems = r.ToDoItems;
-            }
             await context.SaveChangesAsync();
             await SendNoContentAsync();
         }
