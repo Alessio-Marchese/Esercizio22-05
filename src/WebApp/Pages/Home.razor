@@ -36,6 +36,14 @@ else
                             <h5 class="card-title">
                                 @toDoList.Title
                             </h5>
+                            @if (toDoList.IsDone)
+                            {
+                                <i class="fas fa-check-circle text-success"></i>
+                            }
+                            else
+                            {
+                                <i class="fas fa-times-circle text-danger"></i>
+                            }
                             <p class="card-text">
                                 <strong>Created By:</strong> @toDoList.CreatedBy<br />
                                 <strong>Creation Date:</strong> @toDoList.Created.ToString("dd/MM/yyyy")
