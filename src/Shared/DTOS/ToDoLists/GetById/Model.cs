@@ -3,5 +3,14 @@
 public record Response
 {
     public string ListTitle { get; set; }
+
+    public Response()
+    {
+
+    }
+    public Response(string ListTitle)
+    {
+       this.ListTitle = ListTitle;
+    }
 }
 
