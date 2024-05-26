@@ -1,5 +1,6 @@
 ﻿@page "/detail/{id:guid}"
 @inject ToDoListClient ToDoListClient
+@inject ToDoItemClient ToDoItemClient
 @inject HttpClient HttpClient
 @using Shared.DTOS.ToDoLists.GetItemsByListId
 
@@ -50,7 +51,7 @@
                     <tbody>
                         @foreach (var item in response.ToDoItems)
                         {
-                            <tr>
+                            <tr @onclick="() => updateToDoItem(item.Id, item.IsDone)">
                                 <td>@item.Text</td>
                                 <td>
                                     @if (item.IsDone)
@@ -93,5 +94,13 @@
         await ToDoListClient.AddToDoItemAsync(HttpClient, request);
         response = await ToDoListClient.GetItemsByListIdAsync(HttpClient, id);
         newToDoItemTitle = string.Empty;
+    }
+
+    private async Task updateToDoItem(Guid itemId, bool isDone)
+    {
+        bool newIsDone = isDone ? false : true;
+        Shared.DTOS.ToDoItems.Update.Request request = new(itemId, newToDoItemTitle,newIsDone);
+        await ToDoItemClient.UpdateToDoItemAsync(HttpClient, request);
+        response = await ToDoListClient.GetItemsByListIdAsync(HttpClient, id);
     }
 }
