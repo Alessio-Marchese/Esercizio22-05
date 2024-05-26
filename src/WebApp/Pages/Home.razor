@@ -4,7 +4,7 @@
 @inject ToDoListClient ToDoListClient
 @inject NavigationManager NavManager
 
-@* Imposta il titolo della pagina *@
+
 <PageTitle>Home</PageTitle>
 
 @if (response is null)
@@ -15,6 +15,17 @@ else
 {
     <div class="container mt-4">
         <h2 class="mb-3">ToDo Lists</h2>
+
+        <div class="mb-4">
+            <EditForm Model="newToDoListTitle" OnSubmit="addToDoList">
+                <div class="mb-3">
+                    <label for="title" class="form-label">Title</label>
+                    <InputText type="text" id="title" class="form-control" @bind-Value="newToDoListTitle" required />
+                </div>
+                <button type="submit" class="btn btn-primary">Add ToDo List</button>
+            </EditForm>
+        </div>
+
         <table class="table table-bordered table-hover">
             <thead class="table-dark">
                 <tr>
@@ -52,6 +63,7 @@ else
 
 @code {
     List<Response>? response;
+    private string newToDoListTitle = string.Empty;
 
     protected override async Task OnInitializedAsync()
     {
@@ -67,5 +79,15 @@ else
     {
         await ToDoListClient.DeleteToDoListAsync(HttpClient, id);
         NavManager.Refresh();
+    }
+
+    private async Task addToDoList()
+    {
+        if(!string.IsNullOrWhiteSpace(newToDoListTitle))
+        {
+            var request = new Shared.DTOS.ToDoLists.CreateToDoList.Request(newToDoListTitle);
+            await ToDoListClient.AddToDoListAsync(HttpClient, request);
+            response = await ToDoListClient.GetAllAsync(HttpClient);
+        }
     }
 }
