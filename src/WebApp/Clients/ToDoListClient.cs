@@ -1,5 +1,4 @@
-﻿using Shared.Entities;
-using System.Net.Http.Json;
+﻿using System.Net.Http.Json;
 
 namespace webapp.Clients;
 
@@ -25,4 +24,7 @@ public class ToDoListClient
         Shared.DTOS.ToDoLists.Update.Request request = new(id, listTitle);
         await httpClient.PutAsJsonAsync($"http://localhost:5084/api/todo-list/{id}", request);
     }
+
+    public async Task AddToDoItemAsync(HttpClient httpClient, Shared.DTOS.ToDoLists.AddItem.Request request)
+        => await httpClient.PostAsJsonAsync($"http://localhost:5084/api/todo-list/{request.Id}", request);
 }
