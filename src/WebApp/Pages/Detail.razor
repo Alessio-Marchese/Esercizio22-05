@@ -46,6 +46,7 @@
                             <th>Completed?</th>
                             <th>Created By</th>
                             <th>Creation Date</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -67,6 +68,11 @@
                                 </td>
                                 <td>@item.CreatedBy</td>
                                 <td>@item.Created.ToString("dd/MM/yyyy")</td>
+                                <td>
+                                    <button class="btn btn-danger" @onclick:stopPropagation="true" @onclick="() => onButtonClick(item.Id)">
+                                        <i class="fas fa-info-circle"></i> Elimina
+                                    </button>
+                                </td>
                             </tr>
                         }
                     </tbody>
@@ -99,8 +105,14 @@
     private async Task updateToDoItem(Guid itemId, bool isDone)
     {
         bool newIsDone = isDone ? false : true;
-        Shared.DTOS.ToDoItems.Update.Request request = new(itemId, newToDoItemTitle,newIsDone);
+        Shared.DTOS.ToDoItems.Update.Request request = new(itemId, newIsDone);
         await ToDoItemClient.UpdateToDoItemAsync(HttpClient, request);
+        response = await ToDoListClient.GetItemsByListIdAsync(HttpClient, id);
+    }
+
+    private async Task onButtonClick(Guid itemId)
+    {
+        await ToDoItemClient.DeleteToDoItemAsync(HttpClient, itemId);
         response = await ToDoListClient.GetItemsByListIdAsync(HttpClient, id);
     }
 }

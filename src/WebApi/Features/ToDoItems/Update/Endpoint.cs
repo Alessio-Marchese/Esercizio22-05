@@ -16,24 +16,20 @@ namespace webapi.Features.ToDoItems.Update
 
         public override async Task HandleAsync(Request r, CancellationToken c)
         {
-            ToDoList? toDoList = null;
-            var toDoItem = await context.ToDoItems.Include(x => x.ToDoList).FirstOrDefaultAsync(x => x.Id == r.id);
+            var toDoItem = await context.ToDoItems.FirstOrDefaultAsync(x => x.Id == r.id);
             if (toDoItem is null)
             {
                 await SendNotFoundAsync();
                 return;
             }
-            if (r.TodoListId is not null)
+            var toDoList = context.ToDoLists.Include(x => x.ToDoItems).FirstOrDefault(x => x.Id == toDoItem.ToDoListId);
+            if (toDoList is null)
             {
-                toDoList = await context.ToDoLists.FindAsync(r.TodoListId);
-                if (toDoList is null)
-                {
-                    await SendNotFoundAsync();
-                    return;
-                }
+                await SendNotFoundAsync();
+                return;
             }
-            toDoItem = ToDoItem.Update(toDoItem, r, toDoList);
-            toDoItem.ToDoList.CheckDone();
+            toDoItem = ToDoItem.Update(toDoItem, r);
+            toDoList.CheckDone();
             await context.SaveChangesAsync();
             await SendNoContentAsync();
         }

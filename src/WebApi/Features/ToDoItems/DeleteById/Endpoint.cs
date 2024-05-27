@@ -15,15 +15,21 @@ namespace webapi.Features.ToDoItems.DeleteById
 
         public override async Task HandleAsync(Request r, CancellationToken c)
         {
-            var toDoItem = await context.ToDoItems.Include(x => x.ToDoList).FirstOrDefaultAsync(x => x.Id == r.id);
+            var toDoItem = await context.ToDoItems.FirstOrDefaultAsync(x => x.Id == r.id);
             if (toDoItem is null)
+            {
+                await SendNotFoundAsync();
+                return;
+            }
+            var toDoList = context.ToDoLists.Include(x => x.ToDoItems).FirstOrDefault(x => x.Id == toDoItem.ToDoListId);
+            if (toDoList is null)
             {
                 await SendNotFoundAsync();
                 return;
             }
             toDoItem.ToDoList.ToDoItems.Remove(toDoItem);
             context.ToDoItems.Remove(toDoItem);
-            toDoItem.ToDoList.CheckDone();
+            toDoList.CheckDone();
             await context.SaveChangesAsync();
             await SendNoContentAsync();
         }

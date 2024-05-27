@@ -39,20 +39,9 @@ public class ToDoItem : AuditableBaseEntity<Guid>
         return new ToDoItem(text, toDoListId);
     }
 
-    public static ToDoItem Update(ToDoItem toDoItem, Request r, ToDoList? toDoList)
+    public static ToDoItem Update(ToDoItem toDoItem, Request r)
     {
-        if (!string.IsNullOrWhiteSpace(r.Text))
-        {
-            toDoItem.Text = r.Text;
-        }
-        if (toDoItem.IsDone != r.IsDone)
-        {
-            toDoItem.IsDone = r.IsDone;
-        }
-        if (toDoList is not null)
-        {
-            toDoItem.ToDoList = toDoList;
-        }
+        toDoItem.IsDone = r.IsDone;
         return toDoItem;
     }
 }

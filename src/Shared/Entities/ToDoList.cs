@@ -7,6 +7,7 @@ public class ToDoList : AuditableBaseEntity<Guid>
 { 
     public string Title { get; set; }
     public bool IsDone { get; set; }
+    public List<Guid> ToDoItemsId { get; set; }
     public List<ToDoItem> ToDoItems { get; set; } = new List<ToDoItem>();
 
     protected ToDoList()
@@ -36,6 +37,14 @@ public class ToDoList : AuditableBaseEntity<Guid>
 
     public void CheckDone()
     {
-        IsDone = ToDoItems.All(item => item.IsDone);
+        foreach(var item in ToDoItems)
+        {
+            if (!item.IsDone) 
+            {
+                IsDone = false;
+                return;
+            }
+        }
+        IsDone = true;
     }
 }

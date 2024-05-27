@@ -1,4 +1,5 @@
 ﻿using FastEndpoints;
+using Microsoft.EntityFrameworkCore;
 using Shared.DTOS.ToDoLists.AddItem;
 using webapi.Infastructure.Data;
 
@@ -14,7 +15,7 @@ namespace webapi.Features.ToDoLists.AddItem
 
         public override async Task HandleAsync(Request r, CancellationToken c)
         {
-            var toDoList = await context.ToDoLists.FindAsync(r.Id);
+            var toDoList = context.ToDoLists.Include(x => x.ToDoItems).FirstOrDefault(x => x.Id == r.Id);
             if (toDoList ==  null)
             {
                 await SendNotFoundAsync(c);
