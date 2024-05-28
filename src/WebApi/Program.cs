@@ -29,7 +29,7 @@ builder.Services.AddDbContext<ApplicationDbContext>((sp, o) => {
     o.AddInterceptors(sp.GetRequiredService<ISaveChangesInterceptor>());
 });
 builder.Services.AddTransient<IUser, User>();
-builder.Services.AddTransient<TimeProvider>();
+
 /*
     builder.Services.AddDbContext<ApplicationDbContext>(opt =>
 {

@@ -6,7 +6,7 @@ using webapi.Services;
 
 namespace webapi.Infastructure.Data.Interceptors;
 
-public class AuditableEntityInterceptor(IUser user, TimeProvider timeProvider) : SaveChangesInterceptor
+public class AuditableEntityInterceptor(IUser user) : SaveChangesInterceptor
 {
     public override InterceptionResult<int> SavingChanges(DbContextEventData eventData, InterceptionResult<int> result)
     {
@@ -30,7 +30,7 @@ public class AuditableEntityInterceptor(IUser user, TimeProvider timeProvider) :
         {
             if (entry.State is EntityState.Added or EntityState.Modified || entry.HasChangedOwnedEntities())
             {
-                var utcNow = timeProvider.GetUtcNow();
+                var utcNow = DateTime.UtcNow;
                 if (entry.State == EntityState.Added)
                 {
                     entry.Entity.CreatedBy =  user.Id;
