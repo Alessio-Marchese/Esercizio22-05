@@ -1,4 +1,6 @@
-﻿using System.Text.Json.Serialization;
+﻿using AutoMapper;
+using Shared.DTOS.ToDoLists.GetAll;
+using System.Text.Json.Serialization;
 using webapi.Domains.Entities.Common;
 
 namespace webapi.Domains.Entities;
@@ -48,4 +50,13 @@ public class ToDoList : AuditableBaseEntity<Guid>
         IsDone = true;
     }
 }
+
+public class GetAllProfile : Profile
+{
+    public GetAllProfile()
+    {
+        CreateMap<ToDoList, GetAllToDoListResponse>();
+    }
+}
+
 

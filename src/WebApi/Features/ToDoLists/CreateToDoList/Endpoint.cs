@@ -6,7 +6,7 @@ using webapi.Infastructure.Data;
 
 namespace webapi.Features.ToDoLists.CreateToDoList;
 
-public class Endpoint(ApplicationDbContext context) : Endpoint<Request, Response>
+public class Endpoint(ApplicationDbContext context) : Endpoint<CreateToDoListRequest, CreateToDoListResponse>
 {
     public override void Configure()
     {
@@ -14,13 +14,13 @@ public class Endpoint(ApplicationDbContext context) : Endpoint<Request, Response
         AllowAnonymous();
     }
 
-    public override async Task HandleAsync(Request req, CancellationToken ct)
+    public override async Task HandleAsync(CreateToDoListRequest req, CancellationToken ct)
     {
         var toDoList = ToDoList.Create(req.title);
         toDoList.CreatedBy = "Alessio";
         toDoList.Created = DateTime.Now;
         await context.ToDoLists.AddAsync(toDoList);
         await context.SaveChangesAsync();
-        await SendAsync(new Response(toDoList.Id), cancellation: ct);
+        await SendAsync(new CreateToDoListResponse(toDoList.Id), cancellation: ct);
     }
 }

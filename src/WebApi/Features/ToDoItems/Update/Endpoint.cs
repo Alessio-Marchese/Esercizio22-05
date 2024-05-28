@@ -6,7 +6,7 @@ using webapi.Infastructure.Data;
 
 namespace webapi.Features.ToDoItems.Update
 {
-    internal sealed class Endpoint(ApplicationDbContext context) : Endpoint<Request, EmptyResponse>
+    internal sealed class Endpoint(ApplicationDbContext context) : Endpoint<UpdateToDoItemRequest, EmptyResponse>
     {
         public override void Configure()
         {
@@ -14,7 +14,7 @@ namespace webapi.Features.ToDoItems.Update
             AllowAnonymous();
         }
 
-        public override async Task HandleAsync(Request r, CancellationToken c)
+        public override async Task HandleAsync(UpdateToDoItemRequest r, CancellationToken c)
         {
             var toDoItem = await context.ToDoItems.FirstOrDefaultAsync(x => x.Id == r.id);
             if (toDoItem is null)

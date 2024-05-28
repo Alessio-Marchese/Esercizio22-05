@@ -1,5 +1,7 @@
-﻿using System.Text.Json.Serialization;
+﻿using AutoMapper;
 using Shared.DTOS.ToDoItems.Update;
+using Shared.DTOS.ToDoLists.GetItemsByListId;
+using System.Text.Json.Serialization;
 using webapi.Domains.Entities.Common;
 
 namespace webapi.Domains.Entities;
@@ -39,9 +41,18 @@ public class ToDoItem : AuditableBaseEntity<Guid>
         return new ToDoItem(text, toDoListId);
     }
 
-    public static ToDoItem Update(ToDoItem toDoItem, Request r)
+    public static ToDoItem Update(ToDoItem toDoItem, UpdateToDoItemRequest r)
     {
         toDoItem.IsDone = r.IsDone;
         return toDoItem;
     }
 }
+
+public class ToDoItemDtoProfile : Profile
+{
+    public ToDoItemDtoProfile()
+    {
+        CreateMap<ToDoItem, ToDoItemDto > ();
+    }
+}
+

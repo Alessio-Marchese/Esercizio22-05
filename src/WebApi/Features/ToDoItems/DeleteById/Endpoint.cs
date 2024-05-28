@@ -5,7 +5,7 @@ using webapi.Infastructure.Data;
 
 namespace webapi.Features.ToDoItems.DeleteById
 {
-    internal sealed class Endpoint(ApplicationDbContext context) : Endpoint<Request, EmptyResponse>
+    internal sealed class Endpoint(ApplicationDbContext context) : Endpoint<DeleteItemByIdRequest, EmptyResponse>
     {
         public override void Configure()
         {
@@ -13,7 +13,7 @@ namespace webapi.Features.ToDoItems.DeleteById
             AllowAnonymous();
         }
 
-        public override async Task HandleAsync(Request r, CancellationToken c)
+        public override async Task HandleAsync(DeleteItemByIdRequest r, CancellationToken c)
         {
             var toDoItem = await context.ToDoItems.FirstOrDefaultAsync(x => x.Id == r.id);
             if (toDoItem is null)

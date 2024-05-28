@@ -1,9 +1,15 @@
-﻿using AutoMapper;
-using Shared.Entities;
+﻿namespace Shared.DTOS.ToDoLists.GetAll;
+public record GetAllToDoListResponse
+{
+    public List<ToDoListDto> ToDoLists { get; set; }
+    public GetAllToDoListResponse()
+    {
 
-namespace Shared.DTOS.ToDoLists.GetAll;
-public record Request();
-public record Response(Guid Id, string Title, bool IsDone, DateTimeOffset Created, string CreatedBy);
+    }
+}   
+
+public record ToDoListDto(Guid Id, string Title, bool IsDone, DateTimeOffset Created, string CreatedBy);
+
 
 
 

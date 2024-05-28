@@ -1,12 +1,12 @@
 ﻿using AutoMapper.QueryableExtensions;
 using FastEndpoints;
 using Microsoft.EntityFrameworkCore;
-using webapi.Infastructure.Data;
 using Shared.DTOS.ToDoLists.GetAll;
+using webapi.Infastructure.Data;
 
 namespace webapi.Features.ToDoLists.GetAll;
 
-public class Endpoint(ApplicationDbContext context, AutoMapper.IMapper mapper) : Endpoint<EmptyRequest, List<Response>>
+public class Endpoint(ApplicationDbContext context, AutoMapper.IMapper mapper) : Endpoint<EmptyRequest, List<GetAllToDoListResponse>>
 {
     public override void Configure()
     {
@@ -16,6 +16,13 @@ public class Endpoint(ApplicationDbContext context, AutoMapper.IMapper mapper) :
 
     public override async Task HandleAsync(EmptyRequest req, CancellationToken ct)
     {
-        await SendAsync(await context.ToDoLists.ProjectTo<Response>(mapper.ConfigurationProvider).ToListAsync(), cancellation: ct);
+        var toDoLists = await context.ToDoLists.ToListAsync();
+        List<GetAllToDoListResponse> toDoListsDto = new();
+        foreach(var toDoList in toDoLists)
+        {
+            var toDoListDto = mapper.Map<GetAllToDoListResponse>(toDoList);
+            toDoListsDto.Add(toDoListDto);
+        }
+        await SendAsync(toDoListsDto, cancellation: ct);
     }
 }

@@ -3,6 +3,8 @@
 @inject ToDoItemClient ToDoItemClient
 @inject HttpClient HttpClient
 @using Shared.DTOS.ToDoLists.GetItemsByListId
+@using Shared.DTOS.ToDoLists.AddItem
+@using Shared.DTOS.ToDoItems.Update
 
 <PageTitle>Detail</PageTitle>
 
@@ -86,17 +88,17 @@
     [Parameter]
     public Guid id { get; set; }
 
-    private Response? response;
+    private GetItemsByListIdResponse response;
     private string newToDoItemTitle = string.Empty;
 
     protected override async Task OnInitializedAsync()
     {
-        response = await ToDoListClient.GetItemsByListIdAsync(HttpClient, id);
+        var response = await ToDoListClient.GetItemsByListIdAsync(HttpClient, id);
     }
 
     private async Task addToDoItem()
     {
-        Shared.DTOS.ToDoLists.AddItem.Request request = new(id, newToDoItemTitle);
+        AddToDoItemRequest request = new(id, newToDoItemTitle);
         await ToDoListClient.AddToDoItemAsync(HttpClient, request);
         response = await ToDoListClient.GetItemsByListIdAsync(HttpClient, id);
         newToDoItemTitle = string.Empty;
@@ -105,7 +107,7 @@
     private async Task updateToDoItem(Guid itemId, bool isDone)
     {
         bool newIsDone = isDone ? false : true;
-        Shared.DTOS.ToDoItems.Update.Request request = new(itemId, newIsDone);
+        UpdateToDoItemRequest request = new(itemId, newIsDone);
         await ToDoItemClient.UpdateToDoItemAsync(HttpClient, request);
         response = await ToDoListClient.GetItemsByListIdAsync(HttpClient, id);
     }

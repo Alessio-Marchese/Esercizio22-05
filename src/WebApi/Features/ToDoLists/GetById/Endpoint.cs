@@ -1,10 +1,10 @@
 ﻿using FastEndpoints;
-using webapi.Infastructure.Data;
 using Shared.DTOS.ToDoLists.GetById;
+using webapi.Infastructure.Data;
 
 namespace webapi.Features.ToDoLists.GetById;
 
-public class Endpoint(ApplicationDbContext context) : Endpoint<Request, Response>
+public class Endpoint(ApplicationDbContext context) : Endpoint<GetToDoListByIdRequest, GetToDoListByIdResponse>
 {
     public override void Configure()
     {
@@ -12,7 +12,7 @@ public class Endpoint(ApplicationDbContext context) : Endpoint<Request, Response
         AllowAnonymous();
     }
 
-    public override async Task HandleAsync(Request req, CancellationToken ct)
+    public override async Task HandleAsync(GetToDoListByIdRequest req, CancellationToken ct)
     {
         var toDoList = await context.ToDoLists.FindAsync(req.Id);
         if (toDoList == null)
@@ -21,7 +21,7 @@ public class Endpoint(ApplicationDbContext context) : Endpoint<Request, Response
         }
         else
         {
-            await SendAsync(new Response(toDoList.Title));
+            await SendAsync(new GetToDoListByIdResponse(toDoList.Title));
         }
     }
 }

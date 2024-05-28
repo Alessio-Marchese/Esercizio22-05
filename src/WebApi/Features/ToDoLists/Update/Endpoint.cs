@@ -4,7 +4,7 @@ using webapi.Infastructure.Data;
 
 namespace webapi.Features.ToDoLists.Update
 {
-    internal sealed class Endpoint(ApplicationDbContext context) : Endpoint<Request, EmptyResponse>
+    internal sealed class Endpoint(ApplicationDbContext context) : Endpoint<UpdateToDoListRequest, EmptyResponse>
     {
         public override void Configure()
         {
@@ -12,7 +12,7 @@ namespace webapi.Features.ToDoLists.Update
             AllowAnonymous();
         }
 
-        public override async Task HandleAsync(Request r, CancellationToken c)
+        public override async Task HandleAsync(UpdateToDoListRequest r, CancellationToken c)
         {
             var toDoList = await context.ToDoLists.FindAsync(r.id);
             if (toDoList is null)

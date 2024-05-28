@@ -5,7 +5,7 @@ using webapi.Infastructure.Data;
 
 namespace webapi.Features.ToDoLists.AddItem
 {
-    internal sealed class Endpoint(ApplicationDbContext context) : Endpoint<Request, Response>
+    internal sealed class Endpoint(ApplicationDbContext context) : Endpoint<AddToDoItemRequest, AddToDoItemResponse>
     {
         public override void Configure()
         {
@@ -13,7 +13,7 @@ namespace webapi.Features.ToDoLists.AddItem
             AllowAnonymous();
         }
 
-        public override async Task HandleAsync(Request r, CancellationToken c)
+        public override async Task HandleAsync(AddToDoItemRequest r, CancellationToken c)
         {
             var toDoList = context.ToDoLists.Include(x => x.ToDoItems).FirstOrDefault(x => x.Id == r.Id);
             if (toDoList ==  null)
@@ -24,7 +24,7 @@ namespace webapi.Features.ToDoLists.AddItem
             var toDoItem = toDoList.AddToDoItem(r.Text);
             toDoList.CheckDone();
             await context.SaveChangesAsync();
-            await SendAsync(new Response(toDoItem.Id), cancellation: c);
+            await SendAsync(new AddToDoItemResponse(toDoItem.Id), cancellation: c);
         }
     }
 }

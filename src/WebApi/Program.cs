@@ -1,7 +1,6 @@
 using FastEndpoints;
 using FastEndpoints.Swagger;
 using Microsoft.EntityFrameworkCore;
-using Shared;
 using System.Reflection;
 using webapi.Consts;
 using webapi.Infastructure.Data;
@@ -17,7 +16,6 @@ builder.Services.AddCors(options =>
                           policy.WithOrigins(origins).AllowAnyHeader().AllowAnyMethod();
                       });
 });
-builder.Services.AddShared();
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddFastEndpoints().SwaggerDocument();
 builder.Services.AddDbContext<ApplicationDbContext>(o => o.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));

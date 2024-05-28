@@ -1,11 +1,11 @@
 ﻿using FastEndpoints;
 using Microsoft.EntityFrameworkCore;
-using webapi.Infastructure.Data;
 using Shared.DTOS.ToDoLists.GetItemsByListId;
+using webapi.Infastructure.Data;
 
 namespace webapi.Features.ToDoLists.GetItemsByListId;
 
-internal sealed class Endpoint(ApplicationDbContext context, AutoMapper.IMapper mapper) : Endpoint<Request, Response>
+internal sealed class Endpoint(ApplicationDbContext context, AutoMapper.IMapper mapper) : Endpoint<GetItemsByListIdRequest, GetItemsByListIdResponse>
 {
     public override void Configure()
     {
@@ -13,14 +13,20 @@ internal sealed class Endpoint(ApplicationDbContext context, AutoMapper.IMapper 
         AllowAnonymous();
     }
 
-    public override async Task HandleAsync(Request r, CancellationToken c)
+    public override async Task HandleAsync(GetItemsByListIdRequest r, CancellationToken c)
     {
         var toDoList = await context.ToDoLists.Include(x => x.ToDoItems).FirstOrDefaultAsync(x => x.Id == r.Id);
+        List<ToDoItemDto> toDoItemDtos = new List<ToDoItemDto>();
+        foreach(var item in toDoList.ToDoItems) 
+        {
+            var toDoItemDto = mapper.Map<ToDoItemDto>(item);
+            toDoItemDtos.Add(toDoItemDto);
+        }
         if (toDoList == null)
         {
             await SendNotFoundAsync(c);
             return;
         }
-        await SendAsync(new Response(toDoList.ToDoItems), cancellation: c);
+        await SendAsync(new GetItemsByListIdResponse(toDoItemDtos), cancellation: c);
     }
 }

@@ -1,5 +1,3 @@
-﻿namespace Shared.DTOS.ToDoItems.DeleteById
-{
-public record class Request(Guid id);
-public record class Response;
-}
+﻿namespace Shared.DTOS.ToDoItems.DeleteById;
+
+public record DeleteItemByIdRequest(Guid id);

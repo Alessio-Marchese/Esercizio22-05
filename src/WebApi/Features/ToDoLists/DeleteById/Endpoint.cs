@@ -1,10 +1,10 @@
 ﻿using FastEndpoints;
-using Shared.DTOS.ToDoItems.DeleteById;
+using Shared.DTOS.ToDoLists.DeleteById;
 using webapi.Infastructure.Data;
 
 namespace webapi.Features.ToDoLists
 {
-    internal sealed class Endpoint(ApplicationDbContext context) : Endpoint<Request, EmptyResponse>
+    internal sealed class Endpoint(ApplicationDbContext context) : Endpoint<DeleteToDoListByIdRequest, EmptyResponse>
     {
         public override void Configure()
         {
@@ -12,9 +12,9 @@ namespace webapi.Features.ToDoLists
             AllowAnonymous();
         }
 
-        public override async Task HandleAsync(Request r, CancellationToken c)
+        public override async Task HandleAsync(DeleteToDoListByIdRequest r, CancellationToken c)
         {
-            var toDoList = await context.ToDoLists.FindAsync(r.id);
+            var toDoList = await context.ToDoLists.FindAsync(r.Id);
             if (toDoList == null) 
             {
                 await SendNotFoundAsync(c);

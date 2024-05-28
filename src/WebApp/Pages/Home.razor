@@ -3,6 +3,7 @@
 @inject HttpClient HttpClient
 @inject ToDoListClient ToDoListClient
 @inject NavigationManager NavManager
+@using Shared.DTOS.ToDoLists.CreateToDoList
 
 <PageTitle>Home</PageTitle>
 
@@ -28,7 +29,7 @@ else
         </div>
 
         <div class="row">
-            @foreach (var toDoList in response)
+            @foreach (var toDoList in response.ToDoListDtos)
             {
                 <div class="col-md-4 mb-4">
                     <div class="card shadow-sm">
@@ -68,7 +69,7 @@ else
 }
 
 @code {
-    List<Response>? response;
+    GetAllToDoListResponse? response;
     private string newToDoListTitle = string.Empty;
 
     protected override async Task OnInitializedAsync()
@@ -89,7 +90,7 @@ else
 
     private async Task addToDoList()
     {
-            var request = new Shared.DTOS.ToDoLists.CreateToDoList.Request(newToDoListTitle);
+            var request = new CreateToDoListRequest(newToDoListTitle);
             await ToDoListClient.AddToDoListAsync(HttpClient, request);
             response = await ToDoListClient.GetAllAsync(HttpClient);
             newToDoListTitle = string.Empty;

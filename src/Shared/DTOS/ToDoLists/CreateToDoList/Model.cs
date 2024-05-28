@@ -1,3 +1,3 @@
 ﻿namespace Shared.DTOS.ToDoLists.CreateToDoList;
-public record Request(string title);
-public record Response(Guid id);
+public record CreateToDoListRequest(string title);
+public record CreateToDoListResponse(Guid id);

@@ -1,14 +1,14 @@
 ﻿namespace Shared.DTOS.ToDoLists.GetById;
-   public record Request(Guid Id);
-public record Response
+   public record GetToDoListByIdRequest(Guid Id);
+public record GetToDoListByIdResponse
 {
     public string ListTitle { get; set; }
 
-    public Response()
+    public GetToDoListByIdResponse()
     {
 
     }
-    public Response(string ListTitle)
+    public GetToDoListByIdResponse(string ListTitle)
     {
        this.ListTitle = ListTitle;
     }
