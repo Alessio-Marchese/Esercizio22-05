@@ -93,7 +93,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        var response = await ToDoListClient.GetItemsByListIdAsync(HttpClient, id);
+       response = await ToDoListClient.GetItemsByListIdAsync(HttpClient, id);
     }
 
     private async Task addToDoItem()

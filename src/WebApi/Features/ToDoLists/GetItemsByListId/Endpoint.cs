@@ -17,15 +17,15 @@ internal sealed class Endpoint(ApplicationDbContext context, AutoMapper.IMapper 
     {
         var toDoList = await context.ToDoLists.Include(x => x.ToDoItems).FirstOrDefaultAsync(x => x.Id == r.Id);
         List<ToDoItemDto> toDoItemDtos = new List<ToDoItemDto>();
-        foreach(var item in toDoList.ToDoItems) 
-        {
-            var toDoItemDto = mapper.Map<ToDoItemDto>(item);
-            toDoItemDtos.Add(toDoItemDto);
-        }
         if (toDoList == null)
         {
             await SendNotFoundAsync(c);
             return;
+        }
+        foreach (var item in toDoList.ToDoItems) 
+        {
+            var toDoItemDto = mapper.Map<ToDoItemDto>(item);
+            toDoItemDtos.Add(toDoItemDto);
         }
         await SendAsync(new GetItemsByListIdResponse(toDoItemDtos), cancellation: c);
     }
