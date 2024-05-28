@@ -55,7 +55,7 @@ public class GetAllProfile : Profile
 {
     public GetAllProfile()
     {
-        CreateMap<ToDoList, GetAllToDoListResponse>();
+        CreateMap<ToDoList, ToDoListDto>();
     }
 }
 

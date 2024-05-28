@@ -6,7 +6,7 @@ using webapi.Infastructure.Data;
 
 namespace webapi.Features.ToDoLists.GetAll;
 
-public class Endpoint(ApplicationDbContext context, AutoMapper.IMapper mapper) : Endpoint<EmptyRequest, List<GetAllToDoListResponse>>
+public class Endpoint(ApplicationDbContext context, AutoMapper.IMapper mapper) : Endpoint<EmptyRequest, GetAllToDoListResponse>
 {
     public override void Configure()
     {
@@ -17,12 +17,12 @@ public class Endpoint(ApplicationDbContext context, AutoMapper.IMapper mapper) :
     public override async Task HandleAsync(EmptyRequest req, CancellationToken ct)
     {
         var toDoLists = await context.ToDoLists.ToListAsync();
-        List<GetAllToDoListResponse> toDoListsDto = new();
+        List<ToDoListDto> toDoListsDto = new();
         foreach(var toDoList in toDoLists)
         {
-            var toDoListDto = mapper.Map<GetAllToDoListResponse>(toDoList);
+            var toDoListDto = mapper.Map<ToDoListDto>(toDoList);
             toDoListsDto.Add(toDoListDto);
         }
-        await SendAsync(toDoListsDto, cancellation: ct);
+        await SendAsync(new GetAllToDoListResponse() { ToDoLists = toDoListsDto }, cancellation: ct);
     }
 }
