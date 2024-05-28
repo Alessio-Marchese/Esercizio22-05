@@ -2,5 +2,7 @@
 
 namespace Shared.DTOS.ToDoLists.GetItemsByListId;
 
-public record class Request(Guid Id);
-public record class Response(List<ToDoItem> ToDoItems);
+public record Request(Guid Id);
+public record Response(List<ToDoItemDto> ToDoItems);
+
+public record ToDoItemDto(Guid Id, string Text, bool IsDone, string CreatedBy, DateTimeOffset Created);

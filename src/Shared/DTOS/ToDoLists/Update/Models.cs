@@ -2,6 +2,6 @@
 
 namespace Shared.DTOS.ToDoLists.Update
 {
-    public record class Request(Guid id, string Title);
-    public record class Response;
+    public record  Request(Guid id, string Title);
+    public record  Response;
 }

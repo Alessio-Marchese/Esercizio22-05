@@ -2,22 +2,22 @@ using FastEndpoints;
 using FastEndpoints.Swagger;
 using Microsoft.EntityFrameworkCore;
 using Shared;
-using Shared.Entities;
 using System.Reflection;
+using webapi.Consts;
 using webapi.Infastructure.Data;
-
-var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(name: MyAllowSpecificOrigins,
+    
+    var origins = builder.Configuration.GetValue<string>("Cors:WithOrigins")?.Split(";")?? Array.Empty<string>();
+    options.AddPolicy(name: Constants.MY_ALLOW_SPECIFIC_ORIGINS,
                       policy =>
                       {
-                          policy.WithOrigins("https://localhost:7124").AllowAnyHeader().AllowAnyMethod();
+                          policy.WithOrigins(origins).AllowAnyHeader().AllowAnyMethod();
                       });
 });
-builder.Services.AddMyLibraryServices();
+builder.Services.AddShared();
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddFastEndpoints().SwaggerDocument();
 builder.Services.AddDbContext<ApplicationDbContext>(o => o.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -32,7 +32,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(o => o.UseSqlServer(builder.
 builder.Services.AddEndpointsApiExplorer();
 var app = builder.Build();
 
-app.UseCors(MyAllowSpecificOrigins);
+app.UseCors(Constants.MY_ALLOW_SPECIFIC_ORIGINS);
 
 app.UseFastEndpoints().UseSwaggerGen();
 
