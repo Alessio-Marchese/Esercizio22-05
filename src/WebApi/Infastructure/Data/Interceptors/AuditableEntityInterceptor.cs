@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using webapi.Domains.Entities;
 using webapi.Domains.Entities.Common;
 using webapi.Services;
 
@@ -43,7 +44,7 @@ public class AuditableEntityInterceptor(IUser user) : SaveChangesInterceptor
     }
 }
 
-public static class Extensions
+public static partial class Extensions
 {
     public static bool HasChangedOwnedEntities(this EntityEntry entry) =>
         entry.References.Any(r => 

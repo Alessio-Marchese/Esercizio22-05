@@ -2,14 +2,16 @@
 using Shared.DTOS.ToDoLists.GetAll;
 using System.Text.Json.Serialization;
 using webapi.Domains.Entities.Common;
+using webapi.Services;
 
 namespace webapi.Domains.Entities;
 
-public class ToDoList : AuditableBaseEntity<Guid>
+public class ToDoList : AuditableBaseEntity<Guid>, IProgressive
 { 
     public string Title { get; set; }
     public bool IsDone { get; set; }
     public List<ToDoItem> ToDoItems { get; set; } = new List<ToDoItem>();
+    public int Progressive { get; set; }
 
     protected ToDoList()
     {
