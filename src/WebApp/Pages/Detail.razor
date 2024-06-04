@@ -8,8 +8,8 @@
 
 <PageTitle>Detail</PageTitle>
 
-<div class="container mt-4">
-    <div class="card shadow-sm">
+<div class="container mt-4 shadow-lg p-4 bg-white rounded">
+    <div class="card shadow-lg mb-4">
         <div class="card-header bg-primary text-white">
             <h4 class="mb-0">Add New ToDo Item</h4>
         </div>
@@ -36,7 +36,7 @@
     }
     else
     {
-        <div class="card mt-4 shadow-sm">
+        <div class="card mt-4 shadow-lg">
             <div class="card-header bg-secondary text-white">
                 <h4 class="mb-0">ToDo Items</h4>
             </div>
@@ -93,7 +93,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-       response = await ToDoListClient.GetItemsByListIdAsync(HttpClient, id);
+        response = await ToDoListClient.GetItemsByListIdAsync(HttpClient, id);
     }
 
     private async Task addToDoItem()
