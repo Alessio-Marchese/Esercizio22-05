@@ -16,7 +16,7 @@ namespace webapi.Features.ToDoItems.DeleteById
         public override async Task HandleAsync(DeleteItemByIdRequest r, CancellationToken c)
         {
             var toDoItem = await context.ToDoItems.FirstOrDefaultAsync(x => x.Id == r.id);
-            if (toDoItem is null || toDoItem.ToDoList is null)
+            if (toDoItem is null)
             {
                 await SendNotFoundAsync();
                 return;
@@ -27,8 +27,8 @@ namespace webapi.Features.ToDoItems.DeleteById
                 await SendNotFoundAsync();
                 return;
             }
-            toDoItem.ToDoList.ToDoItems.Remove(toDoItem);
             context.ToDoItems.Remove(toDoItem);
+            toDoList.ToDoItems.Remove(toDoItem);
             toDoList.CheckDone();
             await context.SaveChangesAsync();
             await SendNoContentAsync();
