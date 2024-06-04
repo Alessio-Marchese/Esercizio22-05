@@ -7,8 +7,8 @@ using webapi.Services;
 namespace webapi.Domains.Entities;
 
 public class ToDoList : AuditableBaseEntity<Guid>, IProgressive
-{ 
-    public string Title { get; set; }
+{
+    public string Title { get; set; } = string.Empty;
     public bool IsDone { get; set; }
     public List<ToDoItem> ToDoItems { get; set; } = new List<ToDoItem>();
     public int Progressive { get; set; }

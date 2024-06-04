@@ -8,10 +8,10 @@ namespace webapi.Domains.Entities;
 
 public class ToDoItem : AuditableBaseEntity<Guid>
 {
-    public string Text { get; set; }
+    public string Text { get; set; } = string.Empty;
     public Guid ToDoListId { get; set; }
     [JsonIgnore]
-    public ToDoList ToDoList { get; set; }
+    public ToDoList? ToDoList { get; set; }
     public bool IsDone { get; set; } = false;
 
     protected ToDoItem()

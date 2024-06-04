@@ -12,6 +12,6 @@ public abstract class BaseEntity<TId>
         Id = id;
     }
 
-    public TId Id { get; private set; }
+    public TId? Id { get; private set; }
 }
 
