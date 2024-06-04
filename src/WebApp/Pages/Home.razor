@@ -14,12 +14,10 @@
 else
 {
     <div class="container mt-4">
-        <h2 class="mb-3">ToDo Lists</h2>
-
         <div class="mb-4">
             <EditForm Model="newToDoListTitle" OnSubmit="addToDoList">
                 <div class="mb-3">
-                    <label for="title" class="form-label">Title</label>
+                    <label for="title">Add a new list</label>
                     <InputText type="text" id="title" class="form-control" @bind-Value="newToDoListTitle" required />
                 </div>
                 <button type="submit" class="btn btn-primary">
