@@ -1,7 +1,7 @@
 ﻿namespace Shared.DTOS.ToDoLists.GetAll;
 public record GetAllToDoListResponse
 {
-    public List<ToDoListDto> ToDoLists { get; set; }
+    public List<ToDoListDto>? ToDoLists { get; set; }
     public GetAllToDoListResponse()
     {
 

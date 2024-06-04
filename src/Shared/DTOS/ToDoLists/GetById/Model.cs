@@ -2,7 +2,7 @@
    public record GetToDoListByIdRequest(Guid Id);
 public record GetToDoListByIdResponse
 {
-    public string ListTitle { get; set; }
+    public string? ListTitle { get; set; }
 
     public GetToDoListByIdResponse()
     {
