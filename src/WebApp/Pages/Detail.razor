@@ -55,7 +55,25 @@
                         @foreach (var item in response.ToDoItems)
                         {
                             <tr @onclick="() => updateToDoItem(item.Id, item.IsDone)">
-                                <td>@item.Text</td>
+                                <td>
+                                @if (editToDoItemId == item.Id)
+                                {
+                                    <EditForm Model="editToDoItemText" OnValidSubmit="SaveEdit">
+                                        <div class="input-group">
+                                            <InputText @onclick:stopPropagation type="text" class="form-control" @bind-Value="editToDoItemText" />
+                                            <button @onclick:stopPropagation type="submit" class="btn btn-success btn-sm me-2">Save</button>
+                                            <button type="button" class="btn btn-secondary btn-sm" @onclick:stopPropagation @onclick="CancelEdit">Cancel</button>
+                                        </div>
+                                    </EditForm>
+                                }
+                                else
+                                {
+                                    <h5 class="card-title mb-0">
+                                        @item.Text
+                                        <i class="fas fa-edit text-primary ms-2" role="button" @onclick:stopPropagation @onclick="() => EditToDoItem(item.Id, item.Text)"></i>
+                                    </h5>
+                                }
+                                </td>
                                 <td>
                                     @if (item.IsDone)
                                     {
@@ -66,7 +84,7 @@
                                     {
                                         <i class="fas fa-times text-danger"></i>
                                         <p>No</p>
-                                    }
+                                    }   
                                 </td>
                                 <td>@item.CreatedBy</td>
                                 <td>@item.Created.ToString("dd/MM/yyyy")</td>
@@ -87,7 +105,8 @@
 @code {
     [Parameter]
     public Guid id { get; set; }
-
+    private Guid? editToDoItemId;
+    private string editToDoItemText = string.Empty;
     private GetItemsByListIdResponse response;
     private string newToDoItemTitle = string.Empty;
 
@@ -107,7 +126,7 @@
     private async Task updateToDoItem(Guid itemId, bool isDone)
     {
         bool newIsDone = isDone ? false : true;
-        UpdateToDoItemRequest request = new(itemId, newIsDone);
+        UpdateToDoItemRequest request = new(itemId, newIsDone, null);
         await ToDoItemClient.UpdateToDoItemAsync(HttpClient, request);
         response = await ToDoListClient.GetItemsByListIdAsync(HttpClient, id);
     }
@@ -116,5 +135,25 @@
     {
         await ToDoItemClient.DeleteToDoItemAsync(HttpClient, itemId);
         response = await ToDoListClient.GetItemsByListIdAsync(HttpClient, id);
+    }
+
+    private async Task SaveEdit()
+    {
+        UpdateToDoItemRequest request = new(editToDoItemId, null, editToDoItemText);
+        await ToDoItemClient.UpdateToDoItemAsync(HttpClient, request);
+        response = await ToDoListClient.GetItemsByListIdAsync(HttpClient, id);
+        CancelEdit();
+    }
+
+    private void CancelEdit()
+    {
+        editToDoItemId = null;
+        editToDoItemText = string.Empty;
+    }
+
+    private void EditToDoItem(Guid id, string text)
+    {
+        editToDoItemId = id;
+        editToDoItemText = text;
     }
 }

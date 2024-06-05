@@ -43,7 +43,14 @@ public class ToDoItem : AuditableBaseEntity<Guid>
 
     public static ToDoItem Update(ToDoItem toDoItem, UpdateToDoItemRequest r)
     {
-        toDoItem.IsDone = r.IsDone;
+        if(r.IsDone is not null)
+        {
+            toDoItem.IsDone = r.IsDone.Value;
+        }
+        if (r.Text is not null)
+        {
+            toDoItem.Text = r.Text;
+        }
         return toDoItem;
     }
 }
