@@ -27,6 +27,6 @@ internal sealed class Endpoint(ApplicationDbContext context, AutoMapper.IMapper 
             var toDoItemDto = mapper.Map<ToDoItemDto>(item);
             toDoItemDtos.Add(toDoItemDto);
         }
-        await SendAsync(new GetItemsByListIdResponse(toDoItemDtos), cancellation: c);
+        await SendAsync(new GetItemsByListIdResponse() { ToDoItems = toDoItemDtos}, cancellation: c);
     }
 }
