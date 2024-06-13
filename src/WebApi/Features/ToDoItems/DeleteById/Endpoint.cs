@@ -1,6 +1,6 @@
 ﻿using FastEndpoints;
 using Microsoft.EntityFrameworkCore;
-using Shared.DTOS.ToDoItems.DeleteById;
+using Shared.Components.DTOS.ToDoItems.DeleteById;
 using webapi.Infastructure.Data;
 
 namespace webapi.Features.ToDoItems.DeleteById

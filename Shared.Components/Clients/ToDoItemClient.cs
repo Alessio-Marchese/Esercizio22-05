@@ -1,4 +1,4 @@
-﻿using Shared.DTOS.ToDoItems.Update;
+﻿using Shared.Components.DTOS.ToDoItems.Update;
 using System.Net.Http.Json;
 
 namespace Shared.Components.Clients;

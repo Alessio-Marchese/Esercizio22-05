@@ -1,0 +1,8 @@
+﻿@page "/detail/{id:guid}"
+
+<Shared.Components.Detail id="id"></Shared.Components.Detail>
+
+@code {
+	[Parameter]
+	public Guid id { get; set; }
+}

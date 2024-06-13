@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Shared.DTOS.ToDoLists.GetAll;
+using Shared.Components.DTOS.ToDoLists.GetAll;
 using System.Text.Json.Serialization;
 using webapi.Domains.Entities.Common;
 using webapi.Services;

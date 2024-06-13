@@ -1,5 +1,5 @@
 ﻿using FastEndpoints;
-using Shared.DTOS.ToDoLists.CreateToDoList;
+using Shared.Components.DTOS.ToDoLists.CreateToDoList;
 using webapi.Domains.Entities;
 using webapi.Infastructure.Data;
 

@@ -1,6 +1,4 @@
-﻿using HybridMauiApp.Clients;
-using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Shared.Components;
 
 namespace HybridMauiApp
@@ -23,9 +21,8 @@ namespace HybridMauiApp
     		builder.Services.AddBlazorWebViewDeveloperTools();
     		builder.Logging.AddDebug();
 #endif
-            builder.Services.AddSingleton<ToDoListClient>();
-            builder.Services.AddSingleton<HttpClient>();
             builder.Services.AddMyRclServices();
+            builder.Services.AddSingleton<HttpClient>();
             return builder.Build();
         }
     }

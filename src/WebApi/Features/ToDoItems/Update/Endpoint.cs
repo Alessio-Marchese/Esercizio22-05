@@ -1,6 +1,6 @@
 ﻿using FastEndpoints;
 using Microsoft.EntityFrameworkCore;
-using Shared.DTOS.ToDoItems.Update;
+using Shared.Components.DTOS.ToDoItems.Update;
 using webapi.Domains.Entities;
 using webapi.Infastructure.Data;
 

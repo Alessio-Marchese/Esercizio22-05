@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using Shared.DTOS.ToDoItems.Update;
-using Shared.DTOS.ToDoLists.GetItemsByListId;
+using Shared.Components.DTOS.ToDoItems.Update;
+using Shared.Components.DTOS.ToDoLists.GetItemsByListId;
 using System.Text.Json.Serialization;
 using webapi.Domains.Entities.Common;
 

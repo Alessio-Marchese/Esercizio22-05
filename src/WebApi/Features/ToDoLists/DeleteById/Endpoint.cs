@@ -1,5 +1,5 @@
 ﻿using FastEndpoints;
-using Shared.DTOS.ToDoLists.DeleteById;
+using Shared.Components.DTOS.ToDoLists.DeleteById;
 using webapi.Infastructure.Data;
 
 namespace webapi.Features.ToDoLists

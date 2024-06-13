@@ -1,6 +1,6 @@
 ﻿using FastEndpoints;
 using Microsoft.EntityFrameworkCore;
-using Shared.DTOS.ToDoLists.AddItem;
+using Shared.Components.DTOS.ToDoLists.AddItem;
 using webapi.Infastructure.Data;
 
 namespace webapi.Features.ToDoLists.AddItem

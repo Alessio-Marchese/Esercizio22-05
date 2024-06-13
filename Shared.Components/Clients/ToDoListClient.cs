@@ -1,9 +1,9 @@
-﻿using Shared.DTOS.ToDoLists.AddItem;
-using Shared.DTOS.ToDoLists.CreateToDoList;
-using Shared.DTOS.ToDoLists.GetAll;
-using Shared.DTOS.ToDoLists.GetById;
-using Shared.DTOS.ToDoLists.GetItemsByListId;
-using Shared.DTOS.ToDoLists.Update;
+﻿using Shared.Components.DTOS.ToDoLists.AddItem;
+using Shared.Components.DTOS.ToDoLists.CreateToDoList;
+using Shared.Components.DTOS.ToDoLists.GetAll;
+using Shared.Components.DTOS.ToDoLists.GetById;
+using Shared.Components.DTOS.ToDoLists.GetItemsByListId;
+using Shared.Components.DTOS.ToDoLists.Update;
 using System.Net.Http.Json;
 
 namespace Shared.Components.Clients;

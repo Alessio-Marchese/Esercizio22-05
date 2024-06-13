@@ -1,5 +1,5 @@
 ﻿using FastEndpoints;
-using Shared.DTOS.ToDoLists.GetById;
+using Shared.Components.DTOS.ToDoLists.GetById;
 using webapi.Infastructure.Data;
 
 namespace webapi.Features.ToDoLists.GetById;

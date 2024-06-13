@@ -1,5 +1,5 @@
 ﻿using FastEndpoints;
-using Shared.DTOS.ToDoLists.Update;
+using Shared.Components.DTOS.ToDoLists.Update;
 using webapi.Infastructure.Data;
 
 namespace webapi.Features.ToDoLists.Update
