@@ -12,11 +12,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCors(options =>
 {
     
-    var origins = builder.Configuration.GetValue<string>("Cors:WithOrigins")?.Split(";")?? Array.Empty<string>();
+    //var origins = builder.Configuration.GetValue<string>("Cors:WithOrigins")?.Split(";")?? Array.Empty<string>();
     options.AddPolicy(name: Constants.MY_ALLOW_SPECIFIC_ORIGINS,
                       policy =>
                       {
-                          policy.WithOrigins(origins).AllowAnyHeader().AllowAnyMethod();
+                          policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
                       });
 });
 

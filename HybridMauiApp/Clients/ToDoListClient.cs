@@ -1,12 +1,12 @@
-﻿using Shared.DTOS.ToDoLists.AddItem;
-using Shared.DTOS.ToDoLists.CreateToDoList;
-using Shared.DTOS.ToDoLists.GetAll;
-using Shared.DTOS.ToDoLists.GetById;
-using Shared.DTOS.ToDoLists.GetItemsByListId;
-using Shared.DTOS.ToDoLists.Update;
+﻿using HybridMauiApp.DTOS.ToDoLists.AddItem;
+using HybridMauiApp.DTOS.ToDoLists.CreateToDoList;
+using HybridMauiApp.DTOS.ToDoLists.GetAll;
+using HybridMauiApp.DTOS.ToDoLists.GetById;
+using HybridMauiApp.DTOS.ToDoLists.GetItemsByListId;
+using HybridMauiApp.DTOS.ToDoLists.Update;
 using System.Net.Http.Json;
 
-namespace Shared.Components.Clients;
+namespace HybridMauiApp.Clients;
 
 public class ToDoListClient
 {

@@ -1,7 +1,7 @@
 ﻿using Shared.DTOS.ToDoItems.Update;
 using System.Net.Http.Json;
 
-namespace Shared.Components.Clients;
+namespace HybridMauiApp.Clients;
 
 public class ToDoItemClient
 {
